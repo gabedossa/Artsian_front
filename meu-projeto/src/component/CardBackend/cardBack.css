@@ -1,0 +1,69 @@
+.cardBack{
+    width: 850px;
+    background-color: #FFF;
+    padding: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.CardHeader{
+    width: 100%;
+    height: 50px;
+    background-color:#6C2187;
+    border-radius: 5px;
+    color: #FFF;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.content-item{
+    padding: 15px;
+}
+
+.items{
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    align-items: center;
+    display: flex;
+    background-color: #EEE;
+}
+.BTNDelete{
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 10px;
+    background-color: rgba(255, 0, 0, 0.918);
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.BTNDelete:hover{
+    background-color: rgba(192, 0, 0, 0.918);
+
+}
+
+.BTNEdit{
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 10px;
+    background-color: rgb(68, 0, 255);
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.BTNEdit:hover{
+    background-color: rgb(54, 4, 194);
+}
+
+.itemScroll{
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    border: none; 
+}

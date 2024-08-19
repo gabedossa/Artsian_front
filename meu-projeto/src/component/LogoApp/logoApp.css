@@ -1,0 +1,17 @@
+.LogoArea{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.textCima{
+    font-size: 25px;
+    font-weight: lighter;
+    color: #A643C9;
+    margin: 0;
+}
+.textBaixo{
+    font-size: 30px;
+    font-weight: bold;
+    color: #82389c;
+    margin: 0;
+    top: -10;
+}
