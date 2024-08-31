@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import './cardBack.css'
 import axios from "axios";
 import { PopupEscolha } from "../popUpEscolha/PopUpEscolha";
+
 export const BackendCard = () =>{
     const [artists, setArtists] = useState([]);
 
