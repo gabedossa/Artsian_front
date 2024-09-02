@@ -16,8 +16,33 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
     
 }
+
+.tabButton {
+    padding: 10px 20px;
+    background-color: #fff;
+    border:none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .tabButton.active {
+    background-color: #A643C9; /* Cor de fundo para a aba ativa */
+    color: #fff;
+    border-color: #A643C9;
+  }
+  
+  .tabButton:hover {
+    background-color: #ddd; /* Cor de fundo ao passar o mouse */
+  }
+
+
 
 .content-item{
     padding: 15px;
@@ -66,4 +91,7 @@
     overflow-x: hidden;
     padding: 10px;
     border: none; 
+}
+.tabtabButton{
+    border: none;
 }
