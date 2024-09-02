@@ -59,7 +59,7 @@ export const BackendCard = () =>{
                     artists.map((artist) => {
                         return( 
                           <div className="items" key={artist.idArtista}>
-                            <p><strong> ID: </strong>{artist.idArtista} <strong>Nome: </strong>{artist.nome} -- <strong> Tipo: </strong> {artist.descricao}</p>
+                            <p><strong> ID: </strong>{artist.idArtista} <strong>Nome: </strong>{artist.nome} -- <strong> Tipo: </strong> {artist.tipoUsuario}</p>
                             <button className="BTNEdit">Editar</button> 
                             <button className="BTNDelete" onClick={() => confirmDeleteArtista(artist)}>Delete</button> 
                           </div>

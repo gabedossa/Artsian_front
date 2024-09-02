@@ -17,20 +17,21 @@ const LoginCard = () => {
         email,
         senha,
       });
-      console.log(response)
+
       const { tipoUsuario, token } = response.data;
 
       // Armazena o token no localStorage (opcional)
       localStorage.setItem("token", token);
+
       // Redireciona com base no tipo de usuário
       if (tipoUsuario === "DEV") {
         navigate("/adminDashBoard");
-      } else if (tipoUsuario === "COMUN") {
+      } else if (tipoUsuario === "CLIENTE") {
         navigate("/userDashBoard");
-      } else if (tipoUsuario === "ARTIST") {
+      } else if (tipoUsuario === "ARTISTA") {
         navigate("/artistaDashBoard");
       } else {
-        setError("Tipo de usuáriodesconhecido.");
+        setError("Tipo de usuário desconhecido.");
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
@@ -44,11 +45,11 @@ const LoginCard = () => {
         <div className="leftSide"></div>
         <div className="rightSide">
           <LogoApp />
-          <form className='contentbox' onSubmit={handleLogin}>
+          <form className="contentbox" onSubmit={handleLogin}>
             <div className="contentbox">
               <input
                 className="inputArea"
-                type='email' 
+                type="email"
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,20 +57,20 @@ const LoginCard = () => {
               />
               <input
                 className="inputArea"
-                type='password'
+                type="password"
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
+                required
               />
-
               <button className="loginBTN" type="submit">
-                <p>Login</p>
+                Login
               </button>
               {error && <p className="errorTxt">{error}</p>}
             </div>
           </form>
           <p className="cadastroTxt">
-            novo por aqui? <Link to={"/cadastro"}>Clique aqui</Link>
+            Novo por aqui? <Link to={"/cadastro"}>Clique aqui</Link>
           </p>
         </div>
       </div>
