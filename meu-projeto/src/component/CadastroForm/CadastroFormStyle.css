@@ -1,61 +1,132 @@
-.CadastoForm{
-    width: 900px;
+.CadastroForm {
+    width: 100%;
+    max-width: 900px;
     background-color: #FFF;
     display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
     box-shadow: 0 12px 12px rgba(0, 0, 0, 0.25);
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px; /* Add padding for mobile view */
 }
 
-.leftBox{
+.leftBox {
     width: 50%;
-    background-image: url('../../IMG/Desenho6.jpg');
+    height: 450px;
+    background-image: url('../../IMG/Desenho1.jpg');
     background-repeat: no-repeat;
     image-resolution: 200px;
     background-position: center;
     background-size: cover;
 }
-.rightBox{
-    width: 50%;
-    padding: 10px;
+
+.rightBox {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.cadastroBTN{
-    width: 97%;;
+
+.cadastroBTN {
+    width: 100%;
     height: 60px;
     border: none;
-    padding-left: 10px;
+    padding: 0;
     border-radius: 5px;
     cursor: pointer;
     font-weight: lighter;
-    display: flex; /* Adiciona flex para usar flexbox */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #A643C9;
     color: #FFF;
     box-shadow: 0 10px 12px rgba(0, 0, 0, 0.25);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
-.inputTextArea{
-    width: 97%;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    margin: 2px;
-    padding-left: 5px;
-    background-color: #D9D9D9;
+
+.cadastroBTN:hover {
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.35);
+    background-color: #8A3CA8;
 }
-.selectArea{
+
+.inputTextArea,
+.selectArea {
     width: 100%;
     height: 50px;
     border: none;
     border-radius: 10px;
-    margin: 2px;
-    padding-left: 5px;
+    margin: 8px 0;
+    padding-left: 10px;
     background-color: #D9D9D9;
 }
-.CardUser{
-    width: 850px;
+
+.selectArea {
+    padding-right: 10px;
+}
+
+.errorTxt,
+.successTxt {
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center; /* Center text for better readability */
+}
+
+.errorTxt {
+    color: #FF0000;
+    background-color: #FFCCCC;
+}
+
+.successTxt {
+    color: #008000;
+    background-color: #CCFFCC;
+}
+
+.CardUser {
+    width: 100%;
+    max-width: 850px;
     background-color: #FFF;
     margin-top: 20px;
     padding: 10px;
     box-shadow: 0 12px 12px rgba(0, 0, 0, 0.25);
+    margin: 20px auto;
+}
+
+@media (min-width: 768px) {
+    .leftBox, .rightBox {
+        width: 50%; 
+        height: auto; 
+    }
+
+    .CadastroForm {
+        padding: 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .CadastroForm {
+        flex-wrap: nowrap; 
+    }
+
+    .leftBox {
+        height: auto; 
+    }
+
+    .rightBox {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .CadastroForm {
+        padding: 10px; 
+    }
+
+    .cadastroBTN, .inputTextArea, .selectArea {
+        height: 45px; 
+    }
+
+    .errorTxt, .successTxt {
+        font-size: 12px; 
+    }
 }

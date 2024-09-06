@@ -11,3 +11,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  background-color: #FFFFFF; 
+  color: #333333; 
+}
+
+.CadastroForm {
+  background-color: #F5F5F5; 
+  border-color: #6C2187;
+}
+
+.cadastroBTN {
+  background-color: #6C2187;
+  color: #FFFFFF;
+}
+
+.cadastroBTN:hover {
+  background-color: #87217B;
+}
+
+.inputTextArea, .selectArea {
+  background-color: #B76CDB; 
+  border-color: #6C2187;
+  color: #333333; 
+}
+
+.errorTxt {
+  color: #874521;
+  background-color: #FFD700;
+}
+
+.successTxt {
+  color: #21874D;
+}
+
+.CardUser {
+  background-color: #FFFFFF;
+  border-color: #6C2187;
+}
+
+.Navbar {
+  background-color: #214587;
+  color: #FFFFFF;
+}
+
