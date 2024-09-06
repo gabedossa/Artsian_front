@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent, useEffect } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import "./CadastroFormStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -51,13 +51,19 @@ export const CadastroForm: React.FC = () => {
 
       setSuccess("Cadastro realizado com sucesso!");
       setError("");
-      const timer = setTimeout(() => navigate("/"), 2000);
 
-      // Cleanup function to avoid memory leak if component unmounts
+      const timer = setTimeout(() => {
+        navigate("/");
+      }, 2000);
+
+      // Cleanup function to avoid memory leaks
       return () => clearTimeout(timer);
-    } catch (err) {
-      console.error("Erro ao realizar cadastro:", err);
-      setError("Erro ao realizar cadastro. Tente novamente.");
+    } catch (err: any) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || "Erro ao realizar cadastro.");
+      } else {
+        setError("Erro ao realizar cadastro. Tente novamente.");
+      }
       setSuccess("");
     }
   };
@@ -66,8 +72,8 @@ export const CadastroForm: React.FC = () => {
     <div className="CadastroForm">
       <div className="leftBox"></div>{/* Caixa esquerda do card */}
       <div className="rightBox">{/* Caixa direita do card */}
-        <div className="cadastroTitleArea">
-          <p>
+        <div>
+          <p className="cadastroTitleArea">
             <Link to="/">Voltar</Link>
           </p>
           <h1>Cadastro</h1>
@@ -135,3 +141,4 @@ export const CadastroForm: React.FC = () => {
     </div>
   );
 };
+
