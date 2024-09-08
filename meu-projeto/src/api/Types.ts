@@ -3,15 +3,25 @@ export interface Artista {
     nome: string;
     descricao: string;
     email: string;
-    tipo_usuario: string;
+    tipoUsuario: string;
   }
   
   export interface Cliente {
     id_cliente: number;
     nome: string;
-    tipo_usuario: string;
+    descriao?: string;
+    tipoUsuario: string;
     email: string;
-    telefone: string;
+    telefone?: string;
+  }
+
+  export interface ClienteCadastro {
+    nome: string;
+   email: string;
+   senha: string;
+   tipoUsuario: string;  // Deve estar presente aqui
+   telefone?: string;
+   descricao?: string;
   }
   
   export interface Portifolio {
@@ -53,6 +63,14 @@ export interface Artista {
     nome: string;
     email: string;
     senha: string;
-    confirmaSenha: string;
-    tipoUsuario: string;
+    confirmaSenha?: string;
+    tipoUsuario?: string;
+  }
+
+  export interface ArtistaCadastro extends Omit<Artista, 'id_artista'> {
+    nome: string;
+  email: string;
+  senha: string;
+  tipoUsuario: string;
+  descricao: string;
   }

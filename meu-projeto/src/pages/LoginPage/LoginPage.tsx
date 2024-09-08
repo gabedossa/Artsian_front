@@ -1,10 +1,12 @@
 import React from 'react';
-import LoginCard from '../../component/Logincard/LoginCard';
+import LoginCard from '../../component/Logincard/LoginCard'; // Caminho correto para o LoginCard
 
-export const LoginPage = () => {
+const LoginPage: React.FC = () => {
   return (
-    <div className='Loginpage'>
-      <LoginCard/>
+    <div className="LoginPage">
+      <LoginCard />
     </div>
   );
 };
+
+export default LoginPage; // Exportando como default

@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import "./Login.css";
 import LogoApp from "../LogoApp/LogoApp";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const LoginCard = () => {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
+const LoginCard: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8080/api/artistas/login", {
@@ -55,14 +56,19 @@ const LoginCard = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+
+              <div className="passwordbox">
               <input
-                className="inputArea"
-                type="password"
-                placeholder="Senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                required
-              />
+                  className="inputArea"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Senha"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  required
+                />
+                <button className="button-show" onClick={() => setShowPassword((prevState) => !prevState)}>Mostrar</button>
+              </div>
+
               <button className="loginBTN" type="submit">
                 Login
               </button>

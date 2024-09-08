@@ -1,5 +1,5 @@
-import { api } from '../API';
-import { Artista } from '../Types';
+import { api } from "../API";
+import { Artista, ArtistaCadastro } from "../Types";
 
 export const artistaService = {
   getArtistas: async (): Promise<Artista[]> => {
@@ -12,10 +12,11 @@ export const artistaService = {
     return response.data;
   },
 
-  createArtista: async (artista: Omit<Artista, 'id_artista'>): Promise<Artista> => {
-    const response = await api.post<Artista>('/artistas', artista);
-    return response.data;
-  },
+    createArtista: async (artista: ArtistaCadastro): Promise<ArtistaCadastro> => {
+      const response = await api.post<ArtistaCadastro>('/artistas', artista);
+      return response.data;
+    },
+
 
   updateArtista: async (id: number, artista: Partial<Artista>): Promise<Artista> => {
     const response = await api.put<Artista>(`/artistas/${id}`, artista);

@@ -1,31 +1,28 @@
-import React, { useState, FormEvent, ChangeEvent } from "react";
-import "./CadastroFormStyle.css";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { artistaService } from '../../api/services/artistaService';
+import { clienteService } from '../../api/services/clienteService';
+import './CadastroFormStyle.css';
 
-interface FormData {
-  nome: string;
-  email: string;
-  senha: string;
-  confirmaSenha: string;
-  tipoUsuario: string;
-}
+const CadastroForm: React.FC = () => {
+  const [showPassword1, setShowPassword1] = useState<boolean>(false);
+  const [showPassword2, setShowPassword2] = useState<boolean>(false);
 
-export const CadastroForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    nome: "",
-    email: "",
-    senha: "",
-    confirmaSenha: "",
-    tipoUsuario: "",
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    senha: '',
+    confirmaSenha: '',
+    tipoUsuario: '', // Now in camelCase
+    descricao: '', 
+    telefone: '',
   });
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
+
+  const [error, setError] = useState<string>('');
+  const [success, setSuccess] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -37,47 +34,49 @@ export const CadastroForm: React.FC = () => {
     e.preventDefault();
 
     if (formData.senha !== formData.confirmaSenha) {
-      setError("As senhas não coincidem.");
+      setError('As senhas não coincidem.');
       return;
     }
 
     try {
-      await axios.post("http://localhost:8080/api/artistas/post", {
-        nome: formData.nome,
-        email: formData.email,
-        senha: formData.senha,
-        tipoUsuario: formData.tipoUsuario,
-      });
+      if (formData.tipoUsuario === 'ARTISTA') {
+        const newArtista = {
+          nome: formData.nome,
+          email: formData.email,
+          senha: formData.senha,
+          tipoUsuario: formData.tipoUsuario,  // camelCase here
+          descricao: formData.descricao,
+        };
 
-      setSuccess("Cadastro realizado com sucesso!");
-      setError("");
+        await artistaService.createArtista(newArtista);
+        setSuccess('Artista cadastrado com sucesso!');
+      } else if (formData.tipoUsuario === 'CLIENTE') {
+        const newCliente = {
+          nome: formData.nome,
+          email: formData.email,
+          senha: formData.senha,
+          tipoUsuario: formData.tipoUsuario,  // camelCase here
+          telefone: formData.telefone,
+        };
 
-      const timer = setTimeout(() => {
-        navigate("/");
-      }, 2000);
-
-      // Cleanup function to avoid memory leaks
-      return () => clearTimeout(timer);
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        setError(err.response.data.message || "Erro ao realizar cadastro.");
-      } else {
-        setError("Erro ao realizar cadastro. Tente novamente.");
+        await clienteService.createCliente(newCliente);
+        setSuccess('Cliente cadastrado com sucesso!');
       }
-      setSuccess("");
+
+      setError('');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (err: any) {
+      setError('Erro ao realizar cadastro. Tente novamente.');
+      setSuccess('');
     }
   };
 
   return (
     <div className="CadastroForm">
-      <div className="leftBox"></div>{/* Caixa esquerda do card */}
-      <div className="rightBox">{/* Caixa direita do card */}
-        <div>
-          <p className="cadastroTitleArea">
-            <Link to="/">Voltar</Link>
-          </p>
-          <h1>Cadastro</h1>
-        </div>
+      <div className="leftBox"></div>
+      <div className="rightBox">
         <form className="inputContainer" onSubmit={handleCadastro}>
           <input
             className="inputTextArea"
@@ -99,36 +98,60 @@ export const CadastroForm: React.FC = () => {
           />
           <input
             className="inputTextArea"
-            type="password"
+            type={showPassword1 ? "text" : "password"}
             name="senha"
             placeholder="Senha"
             value={formData.senha}
             onChange={handleInputChange}
             required
           />
+          <button className="button-show" onClick={() => setShowPassword1((prevState) => !prevState)}>Mostrar</button>
           <input
             className="inputTextArea"
-            type="password"
+            type={showPassword2 ? "text" : "password"}
             name="confirmaSenha"
             placeholder="Confirma Senha"
             value={formData.confirmaSenha}
             onChange={handleInputChange}
             required
           />
-          <div className="select-container">
-            <select
-              id="options"
-              className="selectArea"
-              name="tipoUsuario"
-              value={formData.tipoUsuario}
+          <button className="button-show" onClick={() => setShowPassword2((prevState) => !prevState)}>Mostrar</button>
+          <select
+            id="options"
+            className="selectArea"
+            name="tipoUsuario"
+            value={formData.tipoUsuario}  // Now it's camelCase
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">Selecione...</option>
+            <option value="ARTISTA">Artista</option>
+            <option value="CLIENTE">Cliente</option>
+          </select>
+
+          {formData.tipoUsuario === 'ARTISTA' && (
+            <input
+              className="inputTextArea"
+              type="text"
+              name="descricao"
+              placeholder="Descrição"
+              value={formData.descricao}
               onChange={handleInputChange}
               required
-            >
-              <option value="">Selecione...</option>
-              <option value="ARTISTA">Artista</option>
-              <option value="CLIENTE">Cliente</option>
-            </select>
-          </div>
+            />
+          )}
+
+          {formData.tipoUsuario === 'CLIENTE' && (
+            <input
+              className="inputTextArea"
+              type="text"
+              name="telefone"
+              placeholder="Telefone"
+              value={formData.telefone}
+              onChange={handleInputChange}
+              required
+            />
+          )}
 
           <button className="cadastroBTN" type="submit">
             Cadastro
@@ -142,3 +165,4 @@ export const CadastroForm: React.FC = () => {
   );
 };
 
+export default CadastroForm;
