@@ -1,3 +1,21 @@
+.app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;  
+}
+.back{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.backBTN{
+    border: none;
+    background-color: none;
+    font-size: 25px;color: blueviolet;
+    text-decoration: none;
+    background-color: #FFF;
+}
+
 .CadastroForm {
     width: 900px;
     background-color: #FFF;

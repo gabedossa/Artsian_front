@@ -14,22 +14,24 @@ const LoginCard: React.FC = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/artistas/login", {
+      const response = await axios.post("http://localhost:8080/api/login", {
         email,
         senha,
-      });
+      }
+    );
+    console.log(response.data);
 
-      const { tipoUsuario, token } = response.data;
+    const userData = response.data;
 
       // Armazena o token no localStorage (opcional)
-      localStorage.setItem("token", token);
-
+      localStorage.setItem("userData", JSON.stringify(userData));
+      console.log(userData.tipoUsuario)
       // Redireciona com base no tipo de usuário
-      if (tipoUsuario === "DEV") {
+      if (userData.tipoUsuario === "DEV") {
         navigate("/adminDashBoard");
-      } else if (tipoUsuario === "CLIENTE") {
+      } else if (userData.tipoUsuario === "CLIENTE") {
         navigate("/userDashBoard");
-      } else if (tipoUsuario === "ARTISTA") {
+      } else if (userData.tipoUsuario === "ARTISTA") {
         navigate("/artistaDashBoard");
       } else {
         setError("Tipo de usuário desconhecido.");
@@ -41,7 +43,7 @@ const LoginCard: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="app">
       <div className="loginCard">
         <div className="leftSide"></div>
         <div className="rightSide">
