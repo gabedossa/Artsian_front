@@ -1,10 +1,17 @@
 import React from 'react';
+import'./ClientePage.css';
+import { TopNavBar } from '../../component/TopNavBar/TopNavBar';
 
-export const UserDashboard = () => {
+export const ClienteDashboard = () => {
   return (
     <div>
-      <h2>Usuário Dashboard</h2>
-      <p>Bem-vindo, Usuário comum!</p>
+      <TopNavBar/>
+      <div className="background">
+        <div className="container">
+          
+        </div>
+
+      </div>
     </div>
   );
 };

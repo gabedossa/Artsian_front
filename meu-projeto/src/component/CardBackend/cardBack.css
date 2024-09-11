@@ -1,5 +1,5 @@
 .cardBack{
-    width: 850px;
+    width: 100%;
     background-color: #FFF;
     padding: 10px;
     margin-top: 25px;
@@ -26,23 +26,21 @@
 
 .tabButton {
     padding: 10px 20px;
-    background-color: #fff;
+    background-color: #A643C9;
     border:none;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
   .tabButton.active {
-    background-color: #A643C9; /* Cor de fundo para a aba ativa */
+    background-color: #8a37a8; /* Cor de fundo para a aba ativa */
     color: #fff;
     border-color: #A643C9;
   }
   
   .tabButton:hover {
-    background-color: #ddd; /* Cor de fundo ao passar o mouse */
+    background-color: #bf4de9; /* Cor de fundo ao passar o mouse */
   }
-
-
 
 .content-item{
     padding: 15px;
