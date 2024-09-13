@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage/LoginPage'; // Caminho correto para o L
 import CadastroPage from './pages/cadastro/CadastroPage'; // Caminho correto para o CadastroPage
 import { ClienteDashboard} from './pages/userHomePage/userHomePage';
 import { ArtistaDashboard } from './pages/artistaHomePage/artistaHomePage';
+import { BuscaArtista } from './pages/buscaArtista/BuscarArtista';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/cadastro" element={<CadastroPage />} />
         <Route path="/userDashBoard" element={<ClienteDashboard />} />
         <Route path="/artistaDashBoard" element={<ArtistaDashboard />} />
+        <Route path="/buscaArtista" element={<BuscaArtista />} />
       </Routes>
     </Router>
     </div>

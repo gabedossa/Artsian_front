@@ -1,0 +1,35 @@
+.background{
+    width: 100%;
+    min-height: 100vh;
+    padding: 25px;
+    background-color: #eee;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+}
+
+.container{
+    width: 1100px;
+    display: block;
+}
+
+.BuscaArtistaArea{
+  display: flex;
+  clear: both;
+}
+
+.buscaBTN{
+    height: 50px;
+    border: none;
+    background-color: #6C2187; /* Example color */
+    color: #fff;
+    cursor: pointer;
+}
+
+.buscaBTN:hover{
+    background-color: #7e279d; /* Example color */
+}
+.searchArea{
+    height: 50px;
+    width: 250px;
+    padding-left: 5px;
+    border: 1px solid #ddd;
+}
