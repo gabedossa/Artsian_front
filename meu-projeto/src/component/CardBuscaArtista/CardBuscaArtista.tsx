@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CardBuscaStyle.css";
-import axios from "axios"; // ou fetch, se preferir
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Importação para navegação
 
 export const CardBuscaArtista = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
@@ -8,18 +9,17 @@ export const CardBuscaArtista = () => {
   const [loading, setLoading] = useState(false); // Estado de carregamento
   const [error, setError] = useState<string | null>(null); // Estado para erros
 
+  const navigate = useNavigate(); // Hook para navegação
+
   // Função para buscar artistas da API
   const fetchArtists = async (searchTerm: string) => {
     setLoading(true);
     setError(null); // Reseta o erro a cada nova busca
     try {
-        if(searchTerm == "" || searchTerm==null){
-            const response = await axios.get(`http://localhost:8080/api/artistas`); // Substitua pela URL correta da sua API
-            setArtists(response.data);
-        }else{
-            const response = await axios.get(`http://localhost:8080/api/artistas?search=${searchTerm}`); // Substitua pela URL correta da sua API
-            setArtists(response.data);
-        }
+      const response = searchTerm
+        ? await axios.get(`http://localhost:8080/api/artistas?search=${searchTerm}`)
+        : await axios.get(`http://localhost:8080/api/artistas`);
+      setArtists(response.data);
     } catch (err) {
       setError("Erro ao buscar artistas. Tente novamente mais tarde.");
     } finally {
@@ -29,10 +29,13 @@ export const CardBuscaArtista = () => {
 
   // useEffect para buscar artistas quando o termo de busca mudar
   useEffect(() => {
-    if (searchTerm.trim() !== "") {
-      fetchArtists(searchTerm);
-    }
+    fetchArtists(searchTerm);
   }, [searchTerm]);
+
+  // Função para navegar à página do artista
+  const handleArtistClick = (id: number) => {
+    navigate(`/artista/${id}`); // Navega para a página do artista com o ID
+  };
 
   return (
     <div className="cardBusca">
@@ -55,9 +58,14 @@ export const CardBuscaArtista = () => {
           {!loading && !error && artists.length > 0 ? (
             artists.map((artist: any) => (
               <div key={artist.id} className="artistCardContent">
+                <p className="artistaNome">{artist.idArtista}</p>
                 <p className="artistaNome">{artist.nome}</p>
                 <p>{artist.tipoUsuario}</p>
                 <p className="artistaDescricao">{artist.descricao}</p>
+                {/* Botão para navegar para a página do artista */}
+                <button onClick={() => handleArtistClick(artist.id)}>
+                  Ver Artista
+                </button>
               </div>
             ))
           ) : (
