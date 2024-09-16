@@ -28,12 +28,18 @@ const LoginCard: React.FC = () => {
       console.log(userData.tipoUsuario)
       // Redireciona com base no tipo de usuário
       if (userData.tipoUsuario === "DEV") {
-        navigate("/adminDashBoard");
-      } else if (userData.tipoUsuario === "CLIENTE") {
+        navigate("/administrador");
+      }
+
+      else if (userData.tipoUsuario === "CLIENTE") {
         navigate("/userDashBoard");
-      } else if (userData.tipoUsuario === "ARTISTA") {
+      }
+
+      else if (userData.tipoUsuario === "ARTISTA") {
         navigate("/artistaDashBoard");
-      } else {
+      }
+      
+      else {
         setError("Tipo de usuário desconhecido.");
       }
     } catch (error) {

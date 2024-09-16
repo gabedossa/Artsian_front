@@ -6,6 +6,7 @@ import { ClienteDashboard} from './pages/userHomePage/userHomePage';
 import { ArtistaDashboard } from './pages/artistaHomePage/artistaHomePage';
 import { BuscaArtista } from './pages/buscaArtista/BuscarArtista';
 import { ArtistSearchPage } from './pages/ArtistaSearchPage/ArtistaSearchPage';
+import { AdminDashboard } from './pages/admHomePage/admHomePage';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/artistaDashBoard" element={<ArtistaDashboard />} />
         <Route path="/buscaArtista" element={<BuscaArtista />} />
         <Route path="/artista/:id" element={<ArtistSearchPage />} />
+        <Route path="/administrador" element={<AdminDashboard />} />
       </Routes>
     </Router>
     </div>
