@@ -1,12 +1,12 @@
 import { api } from "../API";
 import { Artista, ArtistaCadastro } from "../Types";
-
+//Entrontrar artistas
 export const artistaService = {
   getArtistas: async (): Promise<Artista[]> => {
     const response = await api.get<Artista[]>('/artistas');
     return response.data;
   },
-
+//Entrontrar artistas por ID
   getArtista: async (id: number): Promise<Artista> => {
     const response = await api.get<Artista>(`/artistas/${id}`);
     return response.data;

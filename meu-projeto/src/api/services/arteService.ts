@@ -7,6 +7,11 @@ export const arteService = {
     return response.data;
   },
 
+  getArtesByPortifolio: async (idPortifolio: number): Promise<Arte[]> => {
+    const response = await api.get<Arte[]>(`/arte/portifolio/${idPortifolio}`);
+    return response.data;
+  },
+  
   getArte: async (id: number): Promise<Arte> => {
     const response = await api.get<Arte>(`/artes/${id}`);
     return response.data;

@@ -5,6 +5,7 @@ import { TopNavBar } from '../../component/TopNavBar/TopNavBar';
 import { UserInfoCard } from '../../component/userInfoCard/UserInfoCard';
 import { CardPedido } from "../../component/CardPedido/CardPedido";
 import { CardBuscaArtista } from "../../component/CardBuscaArtista/CardBuscaArtista";
+import { CardPedidoUser } from "../../component/CardPedidoUser/CardPedidoUser";
 
 export const ClienteDashboard = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ export const ClienteDashboard = () => {
             usertipo={user.tipoUsuario}
           />
 
-          <CardPedido/>
+          <CardPedidoUser idCliente={user.idCliente}/>
 
           <CardBuscaArtista/>
 

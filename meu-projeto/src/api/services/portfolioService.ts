@@ -1,28 +1,33 @@
 import { api } from '../API';
-import { Portifolio } from '../Types';
+import { Portfolio} from '../Types';
 
 export const portfolioService = {
-  getPortfolios: async (): Promise<Portifolio[]> => {
-    const response = await api.get<Portifolio[]>('/portfolios');
+  getPortfolios: async (): Promise<Portfolio[]> => {
+    const response = await api.get<Portfolio[]>('/portfolio');
     return response.data;
   },
 
-  getPortfolio: async (id: number): Promise<Portifolio> => {
-    const response = await api.get<Portifolio>(`/portfolios/${id}`);
+  getPortifolioByArtista: async (idArtista: number): Promise<Portfolio> => {
+    const response = await api.get<Portfolio>(`/portfolio/artista/${idArtista}`);
     return response.data;
   },
 
-  createPortfolio: async (portfolio: Omit<Portifolio, 'id_portifolio'>): Promise<Portifolio> => {
-    const response = await api.post<Portifolio>('/portfolios', portfolio);
+  getPortfolio: async (id: number): Promise<Portfolio> => {
+    const response = await api.get<Portfolio>(`/portfolio/${id}`);
     return response.data;
   },
 
-  updatePortfolio: async (id: number, portfolio: Partial<Portifolio>): Promise<Portifolio> => {
-    const response = await api.put<Portifolio>(`/portfolios/${id}`, portfolio);
+  createPortfolio: async (portfolio: Omit<Portfolio, 'id_portfolio'>): Promise<Portfolio> => {
+    const response = await api.post<Portfolio>('/portfolio', portfolio);
+    return response.data;
+  },
+
+  updatePortfolio: async (id: number, portfolio: Partial<Portfolio>): Promise<Portfolio> => {
+    const response = await api.put<Portfolio>(`/portfolio/${id}`, portfolio);
     return response.data;
   },
 
   deletePortfolio: async (id: number): Promise<void> => {
-    await api.delete(`/portfolios/${id}`);
+    await api.delete(`/portfolio/${id}`);
   },
 };

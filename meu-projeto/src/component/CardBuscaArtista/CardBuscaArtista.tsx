@@ -32,25 +32,23 @@ export const CardBuscaArtista = () => {
     fetchArtists(searchTerm);
   }, [searchTerm]);
 
-  // Função para navegar à página do artista
-  const handleArtistClick = (id: number) => {
-    navigate(`/artista/${id}`); // Navega para a página do artista com o ID
+  // Função para navegar à página do artista, passando dados do artista
+  const handleArtistClick = (artist: any) => {
+    navigate(`/artista/${artist.id}`, { state: { artist } }); // Passa os dados do artista
   };
 
   return (
     <div className="cardBusca">
       <div className="searchArea">
-        {/* Campo de busca */}
         <input
           type="text"
           placeholder="Digite o nome do artista"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Atualiza o termo de busca
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button onClick={() => fetchArtists(searchTerm)}>Buscar</button>
       </div>
 
-      {/* Área para exibir os artistas */}
       <div className="artistsSelector">
         <div className="artistSearchArea">
           {loading && <p>Carregando...</p>}
@@ -58,14 +56,10 @@ export const CardBuscaArtista = () => {
           {!loading && !error && artists.length > 0 ? (
             artists.map((artist: any) => (
               <div key={artist.id} className="artistCardContent">
-                <p className="artistaNome">{artist.idArtista}</p>
                 <p className="artistaNome">{artist.nome}</p>
                 <p>{artist.tipoUsuario}</p>
                 <p className="artistaDescricao">{artist.descricao}</p>
-                {/* Botão para navegar para a página do artista */}
-                <button onClick={() => handleArtistClick(artist.id)}>
-                  Ver Artista
-                </button>
+                <button onClick={() => handleArtistClick(artist)}>Ver Artista</button>
               </div>
             ))
           ) : (

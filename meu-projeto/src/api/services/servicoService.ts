@@ -12,6 +12,12 @@ export const servicoService = {
     return response.data;
   },
 
+  // Buscar todos os serviços de um artista específico
+  getServicosByArtista: async (idArtista: number): Promise<Servico[]> => {
+    const response = await api.get<Servico[]>(`/servico/artista/${idArtista}`);
+    return response.data;
+  },
+
   createServico: async (servico: Omit<Servico, 'id_servico'>): Promise<Servico> => {
     const response = await api.post<Servico>('/servico/create', servico);
     return response.data;

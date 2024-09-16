@@ -5,7 +5,12 @@ import { Servico } from "../../api/Types";
 import { PopupEscolha } from "../popUpEscolha/PopUpEscolha"; // Verifique se o caminho está correto
 import "./CardServico.css";
 
-export const CardServico = () => {
+interface CardServicoProps {
+  idArtista: number;
+  usertipo: string; // Se precisar usar o tipo de usuário, mantenha essa prop
+}
+
+export const CardServico: React.FC<CardServicoProps> = ({ idArtista, usertipo }) => {
   const [servicos, setServicos] = useState<Servico[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,14 +20,10 @@ export const CardServico = () => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [servicoToDelete, setServicoToDelete] = useState<number | null>(null);
 
-  // Captura o id do artista do localStorage
-  const user = JSON.parse(localStorage.getItem("userData") || "{}");
-  const idArtista: number = user?.idArtista || 1; 
-
-  // Função para buscar os serviços da API
+  // Função para buscar os serviços da API por ID do artista
   const fetchServicos = async () => {
     try {
-      const servicosData = await servicoService.getServicos();
+      const servicosData = await servicoService.getServicosByArtista(idArtista);
       setServicos(servicosData);
     } catch (error) {
       setError("Erro ao buscar serviços. Tente novamente mais tarde.");
@@ -33,12 +34,12 @@ export const CardServico = () => {
 
   useEffect(() => {
     fetchServicos();
-  }, []);
+  }, [idArtista]);
 
   // Função para criar serviço
   const handleCreate = async () => {
     const servicoToCreate = {
-      id_artista: user.idArtista,
+      id_artista: idArtista,
       descricao: currentServico.descricao || "",
       valor_servico: currentServico.valor_servico || 0,
     };
@@ -112,31 +113,35 @@ export const CardServico = () => {
   return (
     <div className="servicoCard">
       <Boxtitle Title="Serviços" />
-        <div className="scroll">
-            {servicos.length > 0 ? (
-              servicos.map((servico) => (
-                <div className="tableRow" key={servico.id_servico}>
-                  <div className="tableData"><p>{servico.descricao}</p></div>
-                  <div className="tableData"><p>R$ {servico.valor_servico.toFixed(2)}</p></div>
-                  <div className="tableData">
-                    <button className="" onClick={() => openEditModal(servico)}>Editar</button>
-                    <button
-                      className="cancelar"
-                      onClick={() => openDeletePopup(servico.id_servico)}
-                    >
-                      Excluir
-                    </button>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={3} className="contente">
-                  Você não possui nenhum serviço oferecido ainda...
-                </td>
-              </tr>
-            )}
-        </div>
+      <div className="scroll">
+        {servicos.length > 0 ? (
+          servicos.map((servico) => (
+            <div className="tableRow" key={servico.id_servico}>
+              <div className="tableData">
+                <p>{servico.descricao}</p>
+              </div>
+              <div className="tableData">
+                <p>R$ {servico.valor_servico.toFixed(2)}</p>
+              </div>
+              <div className="tableData">
+                <button className="" onClick={() => openEditModal(servico)}>
+                  Editar
+                </button>
+                <button
+                  className="cancelar"
+                  onClick={() => openDeletePopup(servico.id_servico)}
+                >
+                  Excluir
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="contente">
+            Você não possui nenhum serviço oferecido ainda...
+          </div>
+        )}
+      </div>
 
       {/* Botão para abrir o modal de criação */}
       <div className="createArea">

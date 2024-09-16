@@ -24,8 +24,8 @@ export interface Artista {
    descricao?: string;
   }
   
-  export interface Portifolio {
-    id_portifolio: number;
+  export interface Portfolio {
+    id_portfolio: number;
     id_artista: number;
     titulo: string;
     descricao: string;
@@ -33,11 +33,14 @@ export interface Artista {
   
   export interface Arte {
     id_arte: number;
-    id_portifolio: number;
+    id_portfolio: number;
     titulo: string;
     descricao: string;
     vote: number;
+    imagem: any; // se armazenar a imagem diretamente como byte array
+    caminho_imagem?: string; // Adicione essa linha
   }
+  
   
   export interface Servico {
     id_servico: number;
@@ -47,6 +50,7 @@ export interface Artista {
   }
   
   export interface Pedido {
+    reduce(arg0: (acc: any, pedido: Pedido) => any, arg1: {}): unknown;
     id_pedido: number;
     id_cliente: number;
     id_artista: number;

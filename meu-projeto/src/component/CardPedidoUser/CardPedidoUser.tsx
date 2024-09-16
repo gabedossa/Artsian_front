@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Boxtitle } from "../boxtitle/BoxTitle";
-import "./cardPedido.css";
 import { Pedido } from "../../api/Types";
 import { pedidoService } from "../../api/services/pedidoService";
 
 interface CardPedidoProps {
-  idArtista: number;  // Certifique-se de que este prop está sendo passado corretamente
+  idCliente: number;  // Corrigido para idCliente
 }
 
-export const CardPedido: React.FC<CardPedidoProps> = ({ idArtista }) => {
+export const CardPedidoUser: React.FC<CardPedidoProps> = ( { idCliente } ) => {
   const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,11 +15,13 @@ export const CardPedido: React.FC<CardPedidoProps> = ({ idArtista }) => {
 
   useEffect(() => {
     const fetchPedidos = async () => {
-      console.log(idArtista)
+      console.log(idCliente);
       try {
-        const pedidosData = await pedidoService.getPedidosPorIdArtista(idArtista);  // Certifique-se de passar o id corretamente
+        // Buscar todos os pedidos do cliente
+        const pedidosData = await pedidoService.getPedidosPorIdCliente(idCliente);  
         setPedidos(pedidosData);
-        console.log(pedidosData)
+        console.log(pedidosData);
+
         // Inicializa o estado workingStatus para cada pedido
         const initialStatus = pedidosData.reduce((acc: any, pedido: Pedido) => {
           acc[pedido.id_pedido] = pedido.trabalhando || false;
@@ -34,10 +35,10 @@ export const CardPedido: React.FC<CardPedidoProps> = ({ idArtista }) => {
       }
     };
 
-    if (idArtista) {
+    if (idCliente) {
       fetchPedidos();
     }
-  }, [idArtista]);
+  }, [idCliente]);
 
   const toggleWorkingStatus = async (id_pedido: number) => {
     const newStatus = !workingStatus[id_pedido];
@@ -68,17 +69,6 @@ export const CardPedido: React.FC<CardPedidoProps> = ({ idArtista }) => {
             <div key={pedido.id_pedido} className="pedidoItem">
               <p>#ID: {pedido.id_pedido} -- </p>
               <p>Descrição: {pedido.descricao}</p>
-              {/* Toggle Switch para status de trabalho */}
-              <div className="toggleSwitch">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={workingStatus[pedido.id_pedido] || false}
-                    onChange={() => toggleWorkingStatus(pedido.id_pedido)}
-                  />
-                  <span>{workingStatus[pedido.id_pedido] ? "Trabalhando" : "Não trabalhando"}</span>
-                </label>
-              </div>
             </div>
           ))
         ) : (

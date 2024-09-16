@@ -5,20 +5,22 @@ import "./artistaHomePage.css";
 import { UserInfoCard } from "../../component/userInfoCard/UserInfoCard";
 import { CardPedido } from "../../component/CardPedido/CardPedido";
 import { CardServico } from "../../component/CardServico/CardServico";
-import { BackendCard } from "../../component/CardBackend/CardBackend";
+import { CardPortfolio } from "../../component/Portifolio/CardPortifolio";
 
 export const ArtistaDashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const user =
+
+  const userCliente =
     location.state?.user ||
     JSON.parse(localStorage.getItem("userData") || "{}");
 
   useEffect(() => {
-    if (!user || !user.tipoUsuario) {
+    if (!userCliente || !userCliente.tipoUsuario) {
       navigate("/login");
     }
-  }, [user, navigate]);
+    console.log(userCliente)
+  }, [userCliente, navigate]);
 
   return (
     <div>
@@ -26,14 +28,21 @@ export const ArtistaDashboard: React.FC = () => {
       <div className="backgroundLogged">
         <div className="container">
           <UserInfoCard
-            idUser={user.idArtista}
-            usernome={user.nome}
-            descricao={user.descricao}
-            usertipo={user.tipoUsuario}
+            idUser={userCliente.idArtista}
+            usernome={userCliente.nome}
+            descricao={userCliente.descricao}
+            usertipo={userCliente.tipoUsuario}
           />
-          <CardServico/>
-          <CardPedido />
-          <BackendCard/>
+          <CardServico
+            idArtista={userCliente.idArtista} // Certifique-se de que o nome da prop esteja correto
+            usertipo={userCliente.tipoUsuario}
+          />
+          <CardPedido
+            idArtista={userCliente.idArtista} // Garantido que a prop idArtista seja passada corretamente
+          />
+
+          <CardPortfolio id={userCliente.idArtista}/>
+
         </div>
       </div>
     </div>
